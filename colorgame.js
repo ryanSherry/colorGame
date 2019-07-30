@@ -31,7 +31,7 @@ function buttonClicked() {
 	colorDisplay.textContent = pickedColor;
 	document.querySelector("#message").textContent = "";
 	populateColors();
-	h1.style.backgroundColor = "#232323";
+	h1.style.backgroundColor = "steelblue";
 	resetButton.textContent = "New Colors";
 }
 
