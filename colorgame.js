@@ -25,10 +25,7 @@ let pushColors = (myArray, num) => {
     	} 
 }}
 
-easyBtn.addEventListener("click", () => {
-	easyBtn.classList.add("selected");
-	hardBtn.classList.remove("selected");
-	hardMode = 3;
+function buttonClicked() {
 	pushColors(colors, hardMode);
 	pickedColor = randomPickedColor(colors, hardMode);
 	colorDisplay.textContent = pickedColor;
@@ -36,42 +33,40 @@ easyBtn.addEventListener("click", () => {
 	populateColors();
 	h1.style.backgroundColor = "#232323";
 	resetButton.textContent = "New Colors";
+}
+
+easyBtn.addEventListener("click", () => {
+	easyBtn.classList.add("selected");
+	hardBtn.classList.remove("selected");
+	hardMode = 3;
+	buttonClicked();
 });
 hardBtn.addEventListener("click", () => {
 	easyBtn.classList.remove("selected");
 	hardBtn.classList.add("selected");
 	hardMode = 6;
-	pushColors(colors, hardMode);
-	pickedColor = randomPickedColor(colors, hardMode);
-	colorDisplay.textContent = pickedColor;
-	document.querySelector("#message").textContent = "";
-	populateColors();
-	h1.style.backgroundColor = "#232323";
-	resetButton.textContent = "New Colors";
+	buttonClicked();
 });
 
+resetButton.addEventListener("click", () => {
+	colors = [];
+	buttonClicked();
+});
+
+//When it first runs, generate random colors in array, randomly pick one of them and display the rgb value of the color you need to match
+
+(() => {
 pushColors(colors, hardMode);
 let pickedColor = randomPickedColor(colors, hardMode);
 let colorDisplay = document.getElementById("colorDisplay");
 colorDisplay.textContent = pickedColor;
-
-resetButton.addEventListener("click", () => {
-	colors = [];
-	pushColors(colors, hardMode);
-	pickedColor = randomPickedColor(colors, hardMode);
-	colorDisplay.textContent = pickedColor;
-	document.querySelector("#message").textContent = "";
-	populateColors();
-	h1.style.backgroundColor = "#232323";
-	resetButton.textContent = "New Colors";
-});
+})();
 
 function populateColors() {
 
 squares.forEach((element, i, colorArray) => {
 	element.style.backgroundColor = colors[i];
 	element.addEventListener("click", () => {
-									let index = i;
 									let clickedColor = colorArray[i].style.backgroundColor;
                                   	if (clickedColor === colorDisplay.textContent) {
                                   		document.querySelector("#message").textContent = "Correct!";
